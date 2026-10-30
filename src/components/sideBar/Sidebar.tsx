@@ -1,3 +1,4 @@
+import { demoMainnetLook, demoWalletName, demoPoolLabel } from "../../constants/demoMainnetLook";
 import React, { ReactElement, useContext, useEffect, useRef, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import styles from "./Sidebar.module.css";
@@ -677,15 +678,15 @@ const Sidebar: React.FC<SidebarProps> = ({ doRescan }) => {
               ) : (
                 <FontAwesomeIcon icon={faCheck} className={cstyles.yellow} />
               )}
-              &nbsp; {info.walletHeight} &nbsp;
+              &nbsp; {demoMainnetLook ? "Synced" : info.walletHeight} &nbsp;
             </div>
-            {info.latestBlock > info.walletHeight && `(${info.latestBlock - info.walletHeight} blocks behind)`}
+            {!demoMainnetLook && info.latestBlock > info.walletHeight && `(${info.latestBlock - info.walletHeight} blocks behind)`}
           </div>
         )}
         {stateSync === "STOPPED" && (
           <div className={`${cstyles.padsmallall} ${cstyles.margintopsmall} ${cstyles.blackbg}`}>
             <div className={cstyles.yellow}>Not syncing</div>
-            <div>{info.walletHeight}</div>
+            {!demoMainnetLook && <div>{info.walletHeight}</div>}
           </div>
         )}
         {stateSync === "SYNCING" && (

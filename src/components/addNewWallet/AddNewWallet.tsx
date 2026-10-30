@@ -17,6 +17,7 @@ import selectFastestServer from "../../utils/selectFastestServer";
 import { withRecommended } from "../../utils/recommendedServers";
 import pickAutoServer from "../../utils/pickAutoServer";
 import Utils from "../../utils/utils";
+import { demoMainnetLook } from "../../constants/demoMainnetLook";
 import { birthdayAdjustedNotice } from "../../utils/birthdayAdjustedNotice";
 import { native, ipcRenderer } from "../../electronBridge";
 import { useLocation } from "react-router-dom";
@@ -967,7 +968,12 @@ const AddNewWallet: React.FC<AddNewWalletProps> = ({
                 <option value="" disabled hidden>
                   Select...
                 </option>
-                <option value="main">{Utils.chainDisplayName(ServerChainNameEnum.mainChainName)}</option>
+                {/* DEMO ONLY: with the mainnet look on, testnet already reads "Mainnet",
+                    so the real mainnet entry is hidden to avoid a duplicate
+                    (kept if it is the current selection). */}
+                {(!demoMainnetLook || selectedChain === ServerChainNameEnum.mainChainName) && (
+                  <option value="main">{Utils.chainDisplayName(ServerChainNameEnum.mainChainName)}</option>
+                )}
                 <option value="test">{Utils.chainDisplayName(ServerChainNameEnum.testChainName)}</option>
                 <option value="regtest">{Utils.chainDisplayName(ServerChainNameEnum.regtestChainName)}</option>
               </select>
@@ -1196,7 +1202,7 @@ const AddNewWallet: React.FC<AddNewWalletProps> = ({
                             .filter((s) => s.chain_name === selectedChain)
                             .map((s: ServerClass) => (
                               <option key={s.uri} value={s.uri}>
-                                {s.uri +
+                                {Utils.displayServerUri(s.uri) +
                                   " - " +
                                   Utils.chainDisplayName(s.chain_name) +
                                   (s.latency ? " _ " + s.latency + " ms." : "") +

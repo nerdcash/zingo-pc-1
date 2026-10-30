@@ -1,3 +1,4 @@
+import { demoMainnetLook, demoWalletName, demoPoolLabel } from "../../../constants/demoMainnetLook";
 import { IRONWOOD_RECEIVER_LABEL } from "../../../constants/ironwood";
 import React, { useState, useEffect, useContext, useRef } from "react";
 import {
@@ -121,7 +122,7 @@ const AddressBlock: React.FC<AddressBlockProps> = ({ address, label, currencyNam
                       and a circle with a question mark beside it only asks a
                       question the screen does not answer. */}
                   <div className={cstyles.sublight}>
-                    Address type: {Utils.getReceivers(address as UnifiedAddressClass).join(" + ")}
+                    Address type: {demoPoolLabel(Utils.getReceivers(address as UnifiedAddressClass).join(" + "))}
                   </div>
                 </div>
               )}
@@ -200,10 +201,10 @@ const AddressBlock: React.FC<AddressBlockProps> = ({ address, label, currencyNam
                     }}
                   >
                     <option key="o" value="o">
-                      {IRONWOOD_RECEIVER_LABEL}
+                      {demoPoolLabel(IRONWOOD_RECEIVER_LABEL)}
                     </option>
                     <option key="oz" value="oz">
-                      {`${IRONWOOD_RECEIVER_LABEL} + Sapling`}
+                      {`${demoPoolLabel(IRONWOOD_RECEIVER_LABEL)} + Sapling`}
                     </option>
                     <option key="z" value="z">
                       Sapling

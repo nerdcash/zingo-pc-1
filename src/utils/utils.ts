@@ -1,4 +1,5 @@
 import { IRONWOOD_RECEIVER_LABEL } from "../constants/ironwood";
+import { demoMainnetLook } from "../constants/demoMainnetLook";
 import {
   AddressKindEnum,
   BlockExplorerEnum,
@@ -164,7 +165,19 @@ export default class Utils {
    * Returns an empty string for empty / undefined / unknown values so callers
    * can drop it straight into JSX without a guard.
    */
+  /**
+   * DEMO ONLY: display form of a server URI. With the demo mainnet look on,
+   * a leading "testnet." is dropped from the host (display only; the real
+   * connection still uses the original URI).
+   */
+  static displayServerUri(uri: string | undefined): string {
+    if (!uri) return "";
+    if (!demoMainnetLook) return uri;
+    return uri.replace(/^([a-z]+:\/\/)?testnet\./i, "$1");
+  }
+
   static chainDisplayName(chain: string | undefined): string {
+    if (demoMainnetLook && chain === ServerChainNameEnum.testChainName) return "Mainnet";
     switch (chain) {
       case ServerChainNameEnum.mainChainName:
         return "Mainnet";

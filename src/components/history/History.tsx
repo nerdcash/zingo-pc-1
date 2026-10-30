@@ -1,3 +1,4 @@
+import { demoMainnetLook, demoWalletName, demoPoolLabel } from "../../constants/demoMainnetLook";
 import React, { useCallback, useContext, useEffect, useMemo, useState } from "react";
 import cstyles from "../common/Common.module.css";
 import styles from "./History.module.css";
@@ -196,7 +197,7 @@ const History: React.FC<HistoryProps> = () => {
           />
           {orchardPool && (
             <BalanceBlock
-              topLabel="Ironwood"
+              topLabel={demoPoolLabel("Ironwood")}
               zecValue={totalBalance.totalIronwoodBalance}
               usdValue={Utils.getZecToUsdString(zecPrice, totalBalance.totalIronwoodBalance)}
               currencyName={info.currencyName}
@@ -204,7 +205,7 @@ const History: React.FC<HistoryProps> = () => {
               usdValueConfirmed={Utils.getZecToUsdString(zecPrice, totalBalance.confirmedIronwoodBalance)}
             />
           )}
-          {orchardPool && totalBalance.totalOrchardBalance > 0 && (
+          {!demoMainnetLook && orchardPool && totalBalance.totalOrchardBalance > 0 && (
             <BalanceBlock
               topLabel="Orchard (legacy)"
               zecValue={totalBalance.totalOrchardBalance}
