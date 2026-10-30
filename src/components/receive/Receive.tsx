@@ -1,3 +1,4 @@
+import { demoMainnetLook, demoWalletName, demoPoolLabel } from "../../constants/demoMainnetLook";
 import React, { useContext, useEffect, useState } from "react";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import { Accordion } from "react-accessible-accordion";
@@ -101,7 +102,7 @@ const Receive: React.FC<ReceiveProps> = () => {
           />
           {orchardPool && (
             <BalanceBlock
-              topLabel="Ironwood"
+              topLabel={demoPoolLabel("Ironwood")}
               zecValue={totalBalance.totalIronwoodBalance}
               usdValue={Utils.getZecToUsdString(zecPrice, totalBalance.totalIronwoodBalance)}
               currencyName={info.currencyName}
@@ -109,7 +110,7 @@ const Receive: React.FC<ReceiveProps> = () => {
               usdValueConfirmed={Utils.getZecToUsdString(zecPrice, totalBalance.confirmedIronwoodBalance)}
             />
           )}
-          {orchardPool && totalBalance.totalOrchardBalance > 0 && (
+          {!demoMainnetLook && orchardPool && totalBalance.totalOrchardBalance > 0 && (
             <BalanceBlock
               topLabel="Orchard (legacy)"
               zecValue={totalBalance.totalOrchardBalance}

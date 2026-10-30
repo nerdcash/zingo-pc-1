@@ -1,3 +1,4 @@
+import { demoMainnetLook, demoWalletName, demoPoolLabel } from "../../constants/demoMainnetLook";
 import React, { useContext, useEffect, useMemo, useState } from "react";
 import styles from "./Dashboard.module.css";
 import { scanRangeWidthsPercent } from "./scanMap";
@@ -264,6 +265,7 @@ const Dashboard: React.FC<DashboardProps> = ({ navigateToHistory }) => {
         !readOnly &&
         !info.migrationInProgress &&
         !drainRunning &&
+        !demoMainnetLook &&
         nu63Activation > 0 &&
         info.orchardMigratable > 0 && (
           <div className={`${cstyles.well} ${styles.migratebanner}`}>
@@ -324,7 +326,7 @@ const Dashboard: React.FC<DashboardProps> = ({ navigateToHistory }) => {
             />
             {orchardPool && (
               <BalanceBlock
-                topLabel="Ironwood"
+                topLabel={demoPoolLabel("Ironwood")}
                 zecValue={totalBalance.totalIronwoodBalance}
                 usdValue={Utils.getZecToUsdString(zecPrice, totalBalance.totalIronwoodBalance)}
                 currencyName={info.currencyName}
@@ -332,7 +334,7 @@ const Dashboard: React.FC<DashboardProps> = ({ navigateToHistory }) => {
                 usdValueConfirmed={Utils.getZecToUsdString(zecPrice, totalBalance.confirmedIronwoodBalance)}
               />
             )}
-            {orchardPool && totalBalance.totalOrchardBalance > 0 && (
+            {!demoMainnetLook && orchardPool && totalBalance.totalOrchardBalance > 0 && (
               <BalanceBlock
                 topLabel="Orchard (legacy)"
                 tooltip={
@@ -693,7 +695,7 @@ const Dashboard: React.FC<DashboardProps> = ({ navigateToHistory }) => {
                             <DetailLine label="Server Version" value={info.version} />
                             <DetailLine label="Zingolib Version" value={info.zingolib} />
                             <DetailLine label="Zingo PC Version" value={buildId()} />
-                            <DetailLine label="Block Height" value={`${info.latestBlock}`} />
+                            {!demoMainnetLook && <DetailLine label="Block Height" value={`${info.latestBlock}`} />}
                             {info.currencyName === "ZEC" && (
                               <DetailLine
                                 label="ZEC Price"

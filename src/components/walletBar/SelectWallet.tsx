@@ -1,9 +1,9 @@
+import { demoMainnetLook, demoWalletName, demoPoolLabel } from "../../constants/demoMainnetLook";
 import React, { useContext } from "react";
 import cstyles from "../common/Common.module.css";
 import { ContextApp } from "../../context/ContextAppState";
 import { ServerChainNameEnum, WalletType } from "../appstate";
 import { ipcRenderer } from "../../electronBridge";
-import { demoMainnetLook } from "../../constants/demoMainnetLook";
 
 type SelectWalletProps = {
   navigateToLoadingScreenChangingWallet: () => void;
@@ -44,7 +44,7 @@ const SelectWallet = ({ navigateToLoadingScreenChangingWallet }: SelectWalletPro
             <optgroup label="MAINNET">
               {walletsSorted.filter(inMainGroup).map((w: WalletType) => (
                 <option key={w.id} value={w.id}>
-                  {w.alias + " - [" + w.creationType + "]" + (w.id === currentWallet.id ? " \u2714" : "")}
+                  {demoWalletName(w.alias) + " - [" + w.creationType + "]" + (w.id === currentWallet.id ? " \u2714" : "")}
                 </option>
               ))}
             </optgroup>
@@ -53,7 +53,7 @@ const SelectWallet = ({ navigateToLoadingScreenChangingWallet }: SelectWalletPro
             <optgroup label="TESTNET">
               {walletsSorted.filter(inTestGroup).map((w: WalletType) => (
                 <option key={w.id} value={w.id}>
-                  {w.alias + " - [" + w.creationType + "]" + (w.id === currentWallet.id ? " \u2714" : "")}
+                  {demoWalletName(w.alias) + " - [" + w.creationType + "]" + (w.id === currentWallet.id ? " \u2714" : "")}
                 </option>
               ))}
             </optgroup>
@@ -65,7 +65,7 @@ const SelectWallet = ({ navigateToLoadingScreenChangingWallet }: SelectWalletPro
                 .filter((w: WalletType) => w.chain_name === ServerChainNameEnum.regtestChainName)
                 .map((w: WalletType) => (
                   <option key={w.id} value={w.id}>
-                    {w.alias + " - [" + w.creationType + "]" + (w.id === currentWallet.id ? " \u2714" : "")}
+                    {demoWalletName(w.alias) + " - [" + w.creationType + "]" + (w.id === currentWallet.id ? " \u2714" : "")}
                   </option>
                 ))}
             </optgroup>

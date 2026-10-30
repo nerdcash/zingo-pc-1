@@ -1,3 +1,4 @@
+import { demoMainnetLook, demoWalletName, demoPoolLabel } from "../../constants/demoMainnetLook";
 import React, { useContext, useEffect, useMemo, useState } from "react";
 
 import { ContextApp } from "../../context/ContextAppState";
@@ -123,7 +124,7 @@ export function ShieldBalance() {
           </div>
         </div>
       )}
-      {anyPending && (
+      {anyPending && !demoMainnetLook && (
         <div className={`${cstyles.red} ${cstyles.small} ${cstyles.padtopsmall}`}>
           Some transactions are pending waiting for the minimum confirmations (3). Balances may change.
         </div>

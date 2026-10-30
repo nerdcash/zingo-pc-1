@@ -1,3 +1,4 @@
+import { demoMainnetLook, demoWalletName, demoPoolLabel } from "../../constants/demoMainnetLook";
 import React, { Component } from "react";
 import { useLocation } from "react-router-dom";
 import { native, ipcRenderer, isSandboxed } from "../../electronBridge";
@@ -866,7 +867,7 @@ class LoadingScreen extends Component<LoadingScreenProps, LoadingScreenState> {
             ...Loading...
             <div className={styles.detailcontainer}>
               <div className={styles.detaillines}>
-                <DetailLine label="Wallet" value={currentWallet.alias} />
+                <DetailLine label="Wallet" value={demoWalletName(currentWallet.alias)} />
                 <DetailLine label="Wallet created by" value={currentWallet.creationType} />
                 <DetailLine label="Network" value={Utils.chainDisplayName(currentWallet.chain_name)} />
                 <DetailLine label="Server" value={Utils.displayServerUri(currentWallet.uri)} />

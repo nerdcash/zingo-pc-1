@@ -1,3 +1,4 @@
+import { demoMainnetLook, demoWalletName, demoPoolLabel } from "../../../constants/demoMainnetLook";
 import React, { useContext, useEffect, useRef, useState } from "react";
 import Modal from "react-modal";
 import dateformat from "dateformat";
@@ -358,7 +359,7 @@ const VtModalInternal: React.FC<VtModalInternalProps> = ({
                 {`${status} - Transaction not yet confirmed`}
               </div>
             )}
-            {status === ValueTransferStatusEnum.confirmed && confirmations >= 0 && confirmations < 3 && (
+            {!demoMainnetLook && status === ValueTransferStatusEnum.confirmed && confirmations >= 0 && confirmations < 3 && (
               <div
                 style={{
                   color: "var(--color-primary-disable)",
