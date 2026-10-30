@@ -869,7 +869,7 @@ class LoadingScreen extends Component<LoadingScreenProps, LoadingScreenState> {
                 <DetailLine label="Wallet" value={currentWallet.alias} />
                 <DetailLine label="Wallet created by" value={currentWallet.creationType} />
                 <DetailLine label="Network" value={Utils.chainDisplayName(currentWallet.chain_name)} />
-                <DetailLine label="Server" value={currentWallet.uri} />
+                <DetailLine label="Server" value={Utils.displayServerUri(currentWallet.uri)} />
               </div>
             </div>
           </div>

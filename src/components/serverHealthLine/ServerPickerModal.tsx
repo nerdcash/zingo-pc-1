@@ -181,7 +181,7 @@ const ServerPickerModal: React.FC<ServerPickerModalProps> = ({ modalIsOpen, clos
             onClick={() => choose(s.uri)}
           >
             {/* Same shape as the wallet settings picker, so the two read alike. */}
-            <span>{s.uri + " - " + Utils.chainDisplayName(s.chain_name) + timing(s)}</span>
+            <span>{Utils.displayServerUri(s.uri) + " - " + Utils.chainDisplayName(s.chain_name) + timing(s)}</span>
             {s.recommended && <span className={styles.badge}>recommended</span>}
             {s.uri === currentUri && <span className={styles.badge}>current</span>}
           </button>

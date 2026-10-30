@@ -101,7 +101,7 @@ const ServerHealthLine: React.FC = () => {
   return (
     <>
       <button type="button" className={styles.line} onClick={onClick} aria-label="Active server health">
-        <span className={styles.uri}>{uri}</span>
+        <span className={styles.uri}>{Utils.displayServerUri(uri)}</span>
         {/* Network before selection mode: which chain you are on outranks who
             chose the server on it. Both wear the same badge — they are two
             facts about the same connection, and giving one its own colour

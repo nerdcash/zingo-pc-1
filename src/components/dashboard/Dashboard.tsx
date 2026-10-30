@@ -688,7 +688,7 @@ const Dashboard: React.FC<DashboardProps> = ({ navigateToHistory }) => {
                       <div>
                         <div className={styles.detailcontainer}>
                           <div className={styles.detaillines}>
-                            <DetailLine label="Server URI" value={info ? info.serverUri : ""} />
+                            <DetailLine label="Server URI" value={info ? Utils.displayServerUri(info.serverUri) : ""} />
                             <DetailLine label="Server Network" value={Utils.chainDisplayName(info.chainName)} />
                             <DetailLine label="Server Version" value={info.version} />
                             <DetailLine label="Zingolib Version" value={info.zingolib} />
