@@ -3,6 +3,7 @@ import cstyles from "../common/Common.module.css";
 import { ContextApp } from "../../context/ContextAppState";
 import { ServerChainNameEnum, WalletType } from "../appstate";
 import { ipcRenderer } from "../../electronBridge";
+import { demoMainnetLook } from "../../constants/demoMainnetLook";
 
 type SelectWalletProps = {
   navigateToLoadingScreenChangingWallet: () => void;
@@ -17,6 +18,15 @@ const SelectWallet = ({ navigateToLoadingScreenChangingWallet }: SelectWalletPro
     return chainCmp !== 0 ? chainCmp : a.id - b.id;
   });
 
+  // DEMO ONLY: with the mainnet look on, testnet wallets are listed under the
+  // MAINNET heading (merged with any real mainnet wallets) and no TESTNET
+  // group is rendered.
+  const inMainGroup = (w: WalletType): boolean =>
+    w.chain_name === ServerChainNameEnum.mainChainName ||
+    (demoMainnetLook && w.chain_name === ServerChainNameEnum.testChainName);
+  const inTestGroup = (w: WalletType): boolean =>
+    !demoMainnetLook && w.chain_name === ServerChainNameEnum.testChainName;
+
   return (
     <>
       {currentWallet !== null && (
@@ -30,26 +40,22 @@ const SelectWallet = ({ navigateToLoadingScreenChangingWallet }: SelectWalletPro
             navigateToLoadingScreenChangingWallet();
           }}
         >
-          {walletsSorted.filter((w: WalletType) => w.chain_name === ServerChainNameEnum.mainChainName).length > 0 && (
+          {walletsSorted.filter(inMainGroup).length > 0 && (
             <optgroup label="MAINNET">
-              {walletsSorted
-                .filter((w: WalletType) => w.chain_name === ServerChainNameEnum.mainChainName)
-                .map((w: WalletType) => (
-                  <option key={w.id} value={w.id}>
-                    {w.alias + " - [" + w.creationType + "]" + (w.id === currentWallet.id ? " \u2714" : "")}
-                  </option>
-                ))}
+              {walletsSorted.filter(inMainGroup).map((w: WalletType) => (
+                <option key={w.id} value={w.id}>
+                  {w.alias + " - [" + w.creationType + "]" + (w.id === currentWallet.id ? " \u2714" : "")}
+                </option>
+              ))}
             </optgroup>
           )}
-          {walletsSorted.filter((w: WalletType) => w.chain_name === ServerChainNameEnum.testChainName).length > 0 && (
+          {walletsSorted.filter(inTestGroup).length > 0 && (
             <optgroup label="TESTNET">
-              {walletsSorted
-                .filter((w: WalletType) => w.chain_name === ServerChainNameEnum.testChainName)
-                .map((w: WalletType) => (
-                  <option key={w.id} value={w.id}>
-                    {w.alias + " - [" + w.creationType + "]" + (w.id === currentWallet.id ? " \u2714" : "")}
-                  </option>
-                ))}
+              {walletsSorted.filter(inTestGroup).map((w: WalletType) => (
+                <option key={w.id} value={w.id}>
+                  {w.alias + " - [" + w.creationType + "]" + (w.id === currentWallet.id ? " \u2714" : "")}
+                </option>
+              ))}
             </optgroup>
           )}
           {walletsSorted.filter((w: WalletType) => w.chain_name === ServerChainNameEnum.regtestChainName).length >
