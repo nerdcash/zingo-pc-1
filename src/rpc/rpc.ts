@@ -15,6 +15,7 @@ import {
   ServerChainNameEnum,
 } from "../components/appstate";
 
+import { demoMainnetLook } from "../constants/demoMainnetLook";
 import { native, ipcRenderer } from "../electronBridge";
 import { RPCInfoType } from "./components/RPCInfoType";
 import { RPCValueTransferType } from "./components/RPCValueTransferType";
@@ -436,6 +437,7 @@ export default class RPC {
    */
   static currencyForChain(chain: ServerChainNameEnum | undefined): string {
     if (!chain) return "";
+    if (demoMainnetLook) return "ZEC";
     return chain === ServerChainNameEnum.mainChainName ? "ZEC" : "TAZ";
   }
 
@@ -1606,7 +1608,7 @@ export default class RPC {
     // Skip entirely on testnet / regtest: TAZ has no USD price and the UI
     // doesn't render the value anyway (BalanceBlock only shows USD when
     // currencyName === "ZEC").
-    if (this.currentWallet && this.currentWallet.chain_name !== ServerChainNameEnum.mainChainName) {
+    if (!demoMainnetLook && this.currentWallet && this.currentWallet.chain_name !== ServerChainNameEnum.mainChainName) {
       return;
     }
 

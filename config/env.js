@@ -101,6 +101,8 @@ function getClientEnvironment(publicUrl) {
         // It is defined here so it is available in the webpackHotDevClient.
         FAST_REFRESH: process.env.FAST_REFRESH !== "false",
         GIT_COMMIT: gitCommit(),
+        // Demo build: show testnet as mainnet in the UI only (see src/constants/demoMainnetLook.ts).
+        ZINGO_DEMO_MAINNET_LOOK: process.env.ZINGO_DEMO_MAINNET_LOOK || "",
       },
     );
   // Stringify all values so we can feed into webpack DefinePlugin

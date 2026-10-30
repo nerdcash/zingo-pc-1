@@ -1,4 +1,5 @@
 import { IRONWOOD_RECEIVER_LABEL } from "../constants/ironwood";
+import { demoMainnetLook } from "../constants/demoMainnetLook";
 import {
   AddressKindEnum,
   BlockExplorerEnum,
@@ -165,6 +166,7 @@ export default class Utils {
    * can drop it straight into JSX without a guard.
    */
   static chainDisplayName(chain: string | undefined): string {
+    if (demoMainnetLook && chain === ServerChainNameEnum.testChainName) return "Mainnet";
     switch (chain) {
       case ServerChainNameEnum.mainChainName:
         return "Mainnet";
